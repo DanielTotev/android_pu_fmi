@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/miToday"
+        android:title="Today"
+        android:icon="@drawable/ic_calendar"
+        app:showAsAction="never" />
+    <item android:id="@+id/miFiveDays"
+        android:title="Five days forecast"
+        android:icon="@drawable/ic_calendar"
+        app:showAsAction="never" />
+    <item android:id="@+id/miSixteenDays"
+        android:title="Sixteen days forecast"
+        android:icon="@drawable/ic_calendar"
+        app:showAsAction="never" />
+
+
+</menu>
