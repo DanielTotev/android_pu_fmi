@@ -26,6 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_FORECAST_HISTORY_RECORD_SQL = "INSERT INTO FORECAST_HISTORY(ID, CITY_NAME, FORECAST_TYPE, DATE) " +
             "VALUES(?, ?, ?, ?)";
     private static final String SELECT_FORECASTS_SQL = "SELECT ID, CITY_NAME, FORECAST_TYPE, DATE FROM FORECAST_HISTORY ORDER BY DATE DESC";
+    private static final String DELETE_FORECAST_BY_ID_SQL = "DELETE FROM FORECAST_HISTORY WHERE ID = ?";
 
     public DatabaseHelper(Context context) {
         super(context,DATABASE_NAME, null, DATABASE_VERSION);
@@ -73,5 +74,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 .forecastType(ForecastType.valueOf(cursor.getString(2)))
                 .searchDate(isoDateStringToDate(cursor.getString(3)))
                 .build();
+    }
+
+    public void deleteForecast(String forecastId) {
+        try(SQLiteDatabase writableDatabase = getWritableDatabase()) {
+            Object[] queryArgs = new Object[] {
+                    forecastId
+            };
+            writableDatabase.execSQL(DELETE_FORECAST_BY_ID_SQL, queryArgs);
+        }
     }
 }
