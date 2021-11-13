@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ForecastHttpClient {
-    private static final String BASE_URL = "http://api.openweathermap.org/data/2.5/weather";
+    private static final String BASE_URL_TODAY_FORECAST = "http://api.openweathermap.org/data/2.5/weather";
+    private static final String BASE_URL_FIVE_DAY_FORECAST = "http://api.openweathermap.org/data/2.5/forecast";
     private static final String APP_ID = "39a0e214163b682fce539c7b687a679d";
     private static final String UNITS = "metric";
 
@@ -17,8 +18,14 @@ public final class ForecastHttpClient {
 
     public static void getForecast(String cityName, AsyncHttpResponseHandler responseHandler) {
         RequestParams params = buildRequestParams(cityName);
-        client.get(BASE_URL, params, responseHandler);
+        client.get(BASE_URL_TODAY_FORECAST, params, responseHandler);
     }
+
+    public static void getFiveDayForecast(String cityName, AsyncHttpResponseHandler responseHandler) {
+        RequestParams params = buildRequestParams(cityName);
+        client.get(BASE_URL_FIVE_DAY_FORECAST, params, responseHandler);
+    }
+
 
     private static RequestParams buildRequestParams(String cityName) {
         RequestParams requestParams = new RequestParams();

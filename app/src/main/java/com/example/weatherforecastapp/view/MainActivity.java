@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity {
     private void bindViewItems() {
         cityNameEditText = findViewById(R.id.etCityName);
         searchForecastButton = findViewById(R.id.btnSearch);
-        forecastIconImageView = findViewById(R.id.ivWeatherIcon);
+        forecastIconImageView = findViewById(R.id.ivListWeatherIcon);
         temperatureTextView = findViewById(R.id.tvTemperature);
         progressBar = findViewById(R.id.progressBar1);
     }
