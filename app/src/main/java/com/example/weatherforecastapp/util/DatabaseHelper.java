@@ -25,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DROP_FORECAST_HISTORY_TABLE_SQL = "DROP TABLE FORECAST_HISTORY";
     private static final String CREATE_FORECAST_HISTORY_RECORD_SQL = "INSERT INTO FORECAST_HISTORY(ID, CITY_NAME, FORECAST_TYPE, DATE) " +
             "VALUES(?, ?, ?, ?)";
-    private static final String SELECT_FORECASTS_SQL = "SELECT ID, CITY_NAME, FORECAST_TYPE, DATE FROM FORECAST_HISTORY";
+    private static final String SELECT_FORECASTS_SQL = "SELECT ID, CITY_NAME, FORECAST_TYPE, DATE FROM FORECAST_HISTORY ORDER BY DATE DESC";
 
     public DatabaseHelper(Context context) {
         super(context,DATABASE_NAME, null, DATABASE_VERSION);

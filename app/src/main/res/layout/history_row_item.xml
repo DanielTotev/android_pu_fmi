@@ -7,6 +7,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvHistoryItem"
-        android:textSize="25sp"
+        android:textSize="20sp"
         />
 </LinearLayout>
