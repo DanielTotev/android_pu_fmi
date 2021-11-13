@@ -9,8 +9,8 @@
         android:title="Five days forecast"
         android:icon="@drawable/ic_calendar"
         app:showAsAction="never" />
-    <item android:id="@+id/miSixteenDays"
-        android:title="Sixteen days forecast"
+    <item android:id="@+id/miHistory"
+        android:title="History"
         android:icon="@drawable/ic_calendar"
         app:showAsAction="never" />
 

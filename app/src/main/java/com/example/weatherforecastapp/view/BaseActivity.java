@@ -27,8 +27,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             case R.id.miToday:
                 openActivity(MainActivity.class);
                 break;
-            case R.id.miSixteenDays:
-                openActivity(SixteenDayActivity.class);
+            case R.id.miHistory:
+                openActivity(HistoryActivity.class);
                 break;
         }
         return true;

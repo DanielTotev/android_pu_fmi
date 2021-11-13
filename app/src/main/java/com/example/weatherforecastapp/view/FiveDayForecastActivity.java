@@ -13,7 +13,11 @@ import android.widget.ProgressBar;
 
 import com.example.weatherforecastapp.R;
 import com.example.weatherforecastapp.model.Forecast;
+import com.example.weatherforecastapp.model.ForecastHistory;
+import com.example.weatherforecastapp.model.ForecastType;
 import com.example.weatherforecastapp.model.MultiDayForecast;
+import com.example.weatherforecastapp.util.DatabaseHelper;
+import com.example.weatherforecastapp.util.ForecastHistoryFactory;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONObject;
@@ -29,6 +33,7 @@ public class FiveDayForecastActivity extends BaseActivity {
     private Button searchButton;
     private ProgressBar progressBar;
     private ListView listView;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,7 @@ public class FiveDayForecastActivity extends BaseActivity {
         bindViewItems();
         handleSearchButtonClick();
         hideProgressBar();
+        databaseHelper = new DatabaseHelper(this);
     }
 
     private void showProgressBar() {
@@ -62,6 +68,12 @@ public class FiveDayForecastActivity extends BaseActivity {
         listView = findViewById(R.id.lvFiveDayForecast);
     }
 
+    private void saveCurrentSearchIntoHistory() {
+        String cityName = cityNameEditText.getText().toString();
+        ForecastHistory forecastHistory = ForecastHistoryFactory.createForecastHistory(cityName, ForecastType.FIVE_DAY);
+        databaseHelper.saveForecast(forecastHistory);
+    }
+
     private class FiveDayForecastJsonResponseHandler extends JsonHttpResponseHandler {
         @SneakyThrows
         @Override
@@ -69,6 +81,7 @@ public class FiveDayForecastActivity extends BaseActivity {
             List<MultiDayForecast> forecasts = createForecastsFromApiResponse(response);
             setListViewAdapter(forecasts);
             hideProgressBar();
+            saveCurrentSearchIntoHistory();
         }
     }
 
