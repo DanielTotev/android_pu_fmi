@@ -27,6 +27,7 @@ public class MainActivity extends BaseActivity {
     private Button searchForecastButton;
     private ImageView forecastIconImageView;
     private TextView temperatureTextView;
+    private TextView weatherDescriptionTextView;
     private ProgressBar progressBar;
 
     @Override
@@ -60,6 +61,7 @@ public class MainActivity extends BaseActivity {
         forecastIconImageView = findViewById(R.id.ivListWeatherIcon);
         temperatureTextView = findViewById(R.id.tvTemperature);
         progressBar = findViewById(R.id.progressBar1);
+        weatherDescriptionTextView = findViewById(R.id.tvWeatherDescription);
     }
 
     private void updateTemperatureTextValue(int temperature) {
@@ -71,6 +73,10 @@ public class MainActivity extends BaseActivity {
         forecastIconImageView.setImageBitmap(bitmap);
     }
 
+    private void updateWeatherDescription(String weatherDescription) {
+        weatherDescriptionTextView.setText(weatherDescription);
+    }
+
     private class ForecastJsonResponseHandler extends JsonHttpResponseHandler {
         @SneakyThrows
         @Override
@@ -78,6 +84,7 @@ public class MainActivity extends BaseActivity {
             Forecast forecast = createForecastFromApiResponse(response);
             updateTemperatureTextValue(forecast.getTemperature());
             updateForecastIcon(forecast.getIcon());
+            updateWeatherDescription(forecast.getWeatherDescription());
             hideProgressBar();
         }
     }

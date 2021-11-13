@@ -23,7 +23,15 @@ public final class ForecastFactory {
         Forecast forecast = new Forecast();
         forecast.setTemperature(extractTemperature(jsonObject));
         forecast.setIcon(extractIcon(jsonObject));
+        forecast.setWeatherDescription(extractWeatherDescription(jsonObject));
         return forecast;
+    }
+
+    private static String extractWeatherDescription(JSONObject jsonObject) throws JSONException {
+        return jsonObject
+                .getJSONArray("weather")
+                .getJSONObject(0)
+                .getString("description");
     }
 
     public static List<MultiDayForecast> createForecastsFromApiResponse(JSONObject jsonObject) throws JSONException {
@@ -41,6 +49,7 @@ public final class ForecastFactory {
         multiDayForecast.setTemperature(extractTemperature(currentJsonObject));
         multiDayForecast.setIcon(extractIcon(currentJsonObject));
         multiDayForecast.setDate(extractDate(currentJsonObject));
+        multiDayForecast.setWeatherDescription(extractWeatherDescription(currentJsonObject));
         return multiDayForecast;
     }
 

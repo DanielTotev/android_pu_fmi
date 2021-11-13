@@ -1,5 +1,6 @@
 package com.example.weatherforecastapp.view;
 
+import static com.example.weatherforecastapp.util.DateFormatUtil.formatDate;
 import static com.example.weatherforecastapp.util.ImageLoader.loadImage;
 
 import android.app.Activity;
@@ -36,11 +37,13 @@ public class WeatherForecastListAdapter extends ArrayAdapter<MultiDayForecast> {
         ImageView weatherIcon =  row.findViewById(R.id.ivListItemWeatherIcon);
         TextView temperatureTextView = row.findViewById(R.id.tvListItemTemperature);
         TextView dateTextView = row.findViewById(R.id.tvListItemDate);
+        TextView weatherDescriptionTextView = row.findViewById(R.id.tvListItemWeatherDescription);
         MultiDayForecast multiDayForecast = getItem(position);
 
         temperatureTextView.setText(multiDayForecast.getTemperature() + "°C");
-        dateTextView.setText(multiDayForecast.getDate().toString());
+        dateTextView.setText(formatDate(multiDayForecast.getDate()));
         weatherIcon.setImageBitmap(loadImage(multiDayForecast.getIcon()));
+        weatherDescriptionTextView.setText(multiDayForecast.getWeatherDescription());
         return  row;
     }
 

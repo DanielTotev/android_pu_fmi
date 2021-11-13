@@ -6,4 +6,5 @@ import lombok.Data;
 public class Forecast {
     private int temperature;
     private String icon;
+    private String weatherDescription;
 }
