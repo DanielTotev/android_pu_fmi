@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/toda/AndroidStudioProjects/WeatherForecastApp/app/src/main/res/drawable-anydpi/ic_calendar.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/toda/AndroidStudioProjects/WeatherForecastApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.32083333333333336" />
         <entry key="..\:/Users/toda/AndroidStudioProjects/WeatherForecastApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.32083333333333336" />
         <entry key="..\:/Users/toda/AndroidStudioProjects/WeatherForecastApp/app/src/main/res/layout/activity_five_day_forecast.xml" value="0.264" />
