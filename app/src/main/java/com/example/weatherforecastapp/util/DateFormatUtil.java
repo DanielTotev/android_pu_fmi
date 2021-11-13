@@ -1,6 +1,7 @@
 package com.example.weatherforecastapp.util;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 import java.util.Locale;
 
@@ -15,4 +16,12 @@ public final class DateFormatUtil {
         return simpleDateFormat.format(date);
     }
 
+    public static Date isoDateStringToDate(String isoDateString) {
+        Instant instant = Instant.parse(isoDateString);
+        return Date.from(instant);
+    }
+
+    public static String dateToIsoString(Date date) {
+        return date.toInstant().toString();
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.weatherforecastapp.view;
 
 import static com.example.weatherforecastapp.util.ForecastFactory.createForecastFromApiResponse;
+import static com.example.weatherforecastapp.util.ForecastHistoryFactory.createForecastHistory;
 import static com.example.weatherforecastapp.util.ForecastHttpClient.getForecast;
 import static com.example.weatherforecastapp.util.ImageLoader.loadImage;
 
@@ -15,6 +16,9 @@ import android.widget.TextView;
 
 import com.example.weatherforecastapp.R;
 import com.example.weatherforecastapp.model.Forecast;
+import com.example.weatherforecastapp.model.ForecastHistory;
+import com.example.weatherforecastapp.model.ForecastType;
+import com.example.weatherforecastapp.util.DatabaseHelper;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONObject;
@@ -29,6 +33,7 @@ public class MainActivity extends BaseActivity {
     private TextView temperatureTextView;
     private TextView weatherDescriptionTextView;
     private ProgressBar progressBar;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,7 @@ public class MainActivity extends BaseActivity {
         bindViewItems();
         handleSearchForecastButtonClick();
         hideProgressBar();
+        databaseHelper = new DatabaseHelper(this);
     }
 
     private void showProgressBar() {
@@ -77,6 +83,12 @@ public class MainActivity extends BaseActivity {
         weatherDescriptionTextView.setText(weatherDescription);
     }
 
+    private void saveSearchHistory() {
+        String cityName = cityNameEditText.getText().toString();
+        ForecastHistory forecastHistory = createForecastHistory(cityName, ForecastType.TODAY);
+        databaseHelper.saveForecast(forecastHistory);
+    }
+
     private class ForecastJsonResponseHandler extends JsonHttpResponseHandler {
         @SneakyThrows
         @Override
@@ -86,6 +98,7 @@ public class MainActivity extends BaseActivity {
             updateForecastIcon(forecast.getIcon());
             updateWeatherDescription(forecast.getWeatherDescription());
             hideProgressBar();
+            saveSearchHistory();
         }
     }
 }
