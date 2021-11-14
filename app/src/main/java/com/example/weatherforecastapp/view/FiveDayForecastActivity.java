@@ -3,6 +3,8 @@ package com.example.weatherforecastapp.view;
 import static com.example.weatherforecastapp.util.ForecastFactory.createForecastsFromApiResponse;
 import static com.example.weatherforecastapp.util.ForecastHttpClient.getFiveDayForecast;
 
+import static cz.msebera.android.httpclient.util.TextUtils.isBlank;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -10,9 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.weatherforecastapp.R;
-import com.example.weatherforecastapp.model.Forecast;
 import com.example.weatherforecastapp.model.ForecastHistory;
 import com.example.weatherforecastapp.model.ForecastType;
 import com.example.weatherforecastapp.model.MultiDayForecast;
@@ -22,7 +24,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -55,8 +56,13 @@ public class FiveDayForecastActivity extends BaseActivity {
 
     private void handleSearchButtonClick() {
         searchButton.setOnClickListener(v -> {
-            showProgressBar();
             String cityName = cityNameEditText.getText().toString();
+            if(isBlank(cityName)) {
+                Toast.makeText(this, "City name is required!", Toast.LENGTH_LONG)
+                .show();
+                return;
+            }
+            showProgressBar();
             getFiveDayForecast(cityName , new FiveDayForecastJsonResponseHandler());
         });
     }

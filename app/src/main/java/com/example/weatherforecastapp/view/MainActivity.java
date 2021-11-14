@@ -5,6 +5,8 @@ import static com.example.weatherforecastapp.util.ForecastHistoryFactory.createF
 import static com.example.weatherforecastapp.util.ForecastHttpClient.getForecast;
 import static com.example.weatherforecastapp.util.ImageLoader.loadImage;
 
+import static cz.msebera.android.httpclient.util.TextUtils.isBlank;
+
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.weatherforecastapp.R;
 import com.example.weatherforecastapp.model.Forecast;
@@ -55,8 +58,13 @@ public class MainActivity extends BaseActivity {
 
     private void handleSearchForecastButtonClick() {
         searchForecastButton.setOnClickListener(v -> {
-            showProgressBar();
             String cityName = cityNameEditText.getText().toString();
+            if(isBlank(cityName)) {
+                Toast.makeText(this, "City name is required", Toast.LENGTH_LONG)
+                        .show();
+                return;
+            }
+            showProgressBar();
             getForecast(cityName, new ForecastJsonResponseHandler());
         });
     }
