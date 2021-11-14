@@ -1,11 +1,12 @@
 package com.example.weatherforecastapp.view;
 
 import static com.example.weatherforecastapp.util.ForecastFactory.createForecastsFromApiResponse;
+import static com.example.weatherforecastapp.util.ForecastHttpClient.getErrorMessage;
 import static com.example.weatherforecastapp.util.ForecastHttpClient.getFiveDayForecast;
-
 import static cz.msebera.android.httpclient.util.TextUtils.isBlank;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -57,13 +58,13 @@ public class FiveDayForecastActivity extends BaseActivity {
     private void handleSearchButtonClick() {
         searchButton.setOnClickListener(v -> {
             String cityName = cityNameEditText.getText().toString();
-            if(isBlank(cityName)) {
+            if (isBlank(cityName)) {
                 Toast.makeText(this, "City name is required!", Toast.LENGTH_LONG)
-                .show();
+                        .show();
                 return;
             }
             showProgressBar();
-            getFiveDayForecast(cityName , new FiveDayForecastJsonResponseHandler());
+            getFiveDayForecast(cityName, new FiveDayForecastJsonResponseHandler());
         });
     }
 
@@ -88,6 +89,16 @@ public class FiveDayForecastActivity extends BaseActivity {
             setListViewAdapter(forecasts);
             hideProgressBar();
             saveCurrentSearchIntoHistory();
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            Log.e("FiveDayForecastError", throwable.getMessage(), throwable);
+            Log.d("FiveDayForecastResponse", errorResponse.toString());
+            hideProgressBar();
+            Toast.makeText(FiveDayForecastActivity.this,
+                    getErrorMessage(statusCode), Toast.LENGTH_LONG)
+                    .show();
         }
     }
 

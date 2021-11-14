@@ -2,13 +2,14 @@ package com.example.weatherforecastapp.view;
 
 import static com.example.weatherforecastapp.util.ForecastFactory.createForecastFromApiResponse;
 import static com.example.weatherforecastapp.util.ForecastHistoryFactory.createForecastHistory;
+import static com.example.weatherforecastapp.util.ForecastHttpClient.getErrorMessage;
 import static com.example.weatherforecastapp.util.ForecastHttpClient.getForecast;
 import static com.example.weatherforecastapp.util.ImageLoader.loadImage;
-
 import static cz.msebera.android.httpclient.util.TextUtils.isBlank;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,7 +60,7 @@ public class MainActivity extends BaseActivity {
     private void handleSearchForecastButtonClick() {
         searchForecastButton.setOnClickListener(v -> {
             String cityName = cityNameEditText.getText().toString();
-            if(isBlank(cityName)) {
+            if (isBlank(cityName)) {
                 Toast.makeText(this, "City name is required", Toast.LENGTH_LONG)
                         .show();
                 return;
@@ -107,6 +108,16 @@ public class MainActivity extends BaseActivity {
             updateWeatherDescription(forecast.getWeatherDescription());
             hideProgressBar();
             saveSearchHistory();
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            Log.e("CurrentDayForecastFailure", throwable.getMessage(), throwable);
+            Log.d("CurrentDayForecastResponse", errorResponse.toString());
+            Toast.makeText(MainActivity.this,
+                    getErrorMessage(statusCode), Toast.LENGTH_LONG)
+                    .show();
+            hideProgressBar();
         }
     }
 }
