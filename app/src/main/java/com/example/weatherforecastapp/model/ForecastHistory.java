@@ -21,6 +21,6 @@ public class ForecastHistory {
     @Override
     public String toString() {
         return String.format("City: %s, Forecast Type: %s, Date: %s",
-                cityName, forecastType, formatDate(searchDate));
+                cityName, forecastType.getLabel(), formatDate(searchDate));
     }
 }

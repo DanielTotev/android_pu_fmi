@@ -16,9 +16,6 @@
             android:name=".view.HistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".view.SixteenDayActivity"
-            android:exported="false" />
-        <activity
             android:name=".view.FiveDayForecastActivity"
             android:exported="false" />
         <activity
